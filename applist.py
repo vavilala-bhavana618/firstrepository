@@ -29,9 +29,10 @@ for environment in subdirectories:
         for component in components:
             component_name = component.get("name", "N/A")
             component_version = component.get("version", "N/A")
-            component_repository = component.get("repository", "N/A")
+           # component_repository = component.get("repository", "N/A")
             
-            table.add_row([environment, component_name, component_version, component_repository])
+           # table.add_row([environment, component_name, component_version, component_repository])
+            table.add_row([environment, component_name, component_version])
 
 # Display the table
 print(table)
