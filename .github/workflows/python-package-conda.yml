@@ -1,0 +1,25 @@
+name: Run Python Script
+
+on:
+  push:
+    branches:
+      - master  # Change this to your repository's main branch name
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest  # You can choose a different runner if needed
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10  # Use the desired Python version
+
+    - name: Install dependencies
+      run: pip install prettytable pyyaml  # Install required Python packages
+
+    - name: Run Python Script
+      run: python applist.py
