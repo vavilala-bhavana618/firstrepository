@@ -4,7 +4,7 @@ from prettytable import PrettyTable
 
 # Create a PrettyTable
 table = PrettyTable()
-table.field_names = ["Environment", "Component Name", "Version", "Repository"]
+table.field_names = ["Environment", "Component Name", "Version"]
 # Get the directory of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))  # Define the path to the current script
 
