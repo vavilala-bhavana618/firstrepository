@@ -1,9 +1,6 @@
 name: Run Python Script
 
-on:
-  push:
-    branches:
-      - master  # Change this to your repository's main branch name
+on: workflow_dispatch
 
 jobs:
   run_script:
