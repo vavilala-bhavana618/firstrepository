@@ -1,0 +1,26 @@
+name: My Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      approval:
+        description: 'Approve the workflow'
+        required: true
+
+jobs:
+  approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if user is approved
+        run: echo "User ${{ github.actor }} approved the workflow"
+        if: github.actor == 'approved-user'
+
+  main:
+    runs-on: ubuntu-latest
+    needs: approval
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.approval == 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Add your main workflow steps here
