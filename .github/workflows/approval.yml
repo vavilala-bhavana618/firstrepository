@@ -10,7 +10,6 @@ on:
         - lab-a
         - lab-b
         - lab-c
-        - lab-xstore
         required: true
       destination_env:
         type: choice
