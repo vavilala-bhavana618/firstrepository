@@ -34,10 +34,13 @@ jobs:
           git add .
           git commit -m "Copy Helm repo from ${{ github.event.inputs.source-folder }} to ${{ github.event.inputs.destination-folder }}"
 
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     branch: copy-helm-${{ github.run_number }}
       - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          branch: copy-helm-${{ github.run_number }}
+        run: git push origin copy-helm-${{ github.run_number }} --set-upstream
+
 
       - name: Open Pull Request
         uses: peter-evans/create-pull-request@v3
