@@ -35,6 +35,6 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: feature-branch  # replace 'feature-branch' with your branch name
+          branch: master  # replace 'feature-branch' with your branch name
           title: "Copy Code and Create Pull Request"
           body: "This pull request was automatically created to copy code from source to destination folder."
