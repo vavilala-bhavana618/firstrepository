@@ -42,10 +42,10 @@ jobs:
         run: git push origin copy-helm-${{ github.run_number }} --set-upstream
         
       - name: Fetch main branch
-        run: git fetch origin main
+        run: git fetch origin master
 
       - name: Hard reset to main branch
-        run: git reset --hard origin/main
+        run: git reset --hard origin/master
 
       - name: Open Pull Request
         uses: peter-evans/create-pull-request@v3
