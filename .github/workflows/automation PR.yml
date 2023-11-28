@@ -25,7 +25,6 @@ jobs:
 
       - name: Copy Helm repo
         run: |
-          mkdir -p destination
           cp -r "env/${{ github.event.inputs.source-folder }}"/* "env/${{ github.event.inputs.destination-folder }}/"
 
       - name: Commit changes
@@ -37,7 +36,6 @@ jobs:
 
       - name: Push changes
         run: git push origin copy-helm-${{ github.run_number }} --set-upstream
-
 
       - name: Open Pull Request
         uses: peter-evans/create-pull-request@v3
