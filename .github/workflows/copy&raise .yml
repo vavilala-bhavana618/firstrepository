@@ -27,7 +27,7 @@ jobs:
           git commit -m "Copy code from source to destination folder"
 
       - name: Pull latest changes from remote repository
-        run: git pull origin feature-branch
+        run: git pull origin feature-branch --no-rebase
  
       - name: Push changes
         uses: ad-m/github-push-action@master
