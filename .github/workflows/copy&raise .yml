@@ -21,8 +21,8 @@ jobs:
  
       - name: Commit changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "vabhavana@deloitte.com"
+          git config --local user.name "vavilala-bhavana618"
           git add .
           git commit -m "Copy code from source to destination folder"
  
