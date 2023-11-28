@@ -1,0 +1,34 @@
+name: Pre-Deployment Validation
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: environment
+        description: Where to deploy
+        
+jobs:
+  chart_validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Validate Chart
+        run: |
+          # Code to validate chart
+          echo "Chart Validation completed"
+
+  copy_docker_image:
+    name: Image copy approval
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Copying Docker Images
+        run: |
+          echo Image copy approval ${{inputs.env}}
+          echo environment name ${{ github.event.inputs.environment }}
+          # Code to Copy images
+          echo Image Copy completed
