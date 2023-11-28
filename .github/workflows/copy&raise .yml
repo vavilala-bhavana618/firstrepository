@@ -1,0 +1,40 @@
+name: Copy Code and Create Pull Request
+ 
+on: workflow_dispatch
+ 
+jobs:
+  copy-code-and-create-pr:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+ 
+      - name: Create new branch
+        run: git checkout -b feature-branch  # replace 'feature-branch' with your branch name
+ 
+      - name: Copy code from one folder to another
+        run: |
+          mkdir -p destination-folder
+          cp -r source-folder/. destination-folder/
+        working-directory: path/to/repository  # specify the path to your repository
+ 
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Copy code from source to destination folder"
+ 
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: feature-branch  # replace 'feature-branch' with your branch name
+ 
+      - name: Open Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: feature-branch  # replace 'feature-branch' with your branch name
+          title: "Copy Code and Create Pull Request"
+          body: "This pull request was automatically created to copy code from source to destination folder."
