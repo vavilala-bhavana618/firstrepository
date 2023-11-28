@@ -41,7 +41,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: $branch_name
+          branch: copy-helm-${{ github.run_number }}
           base: master
           title: "Copy Helm Repo and Create Pull Request"
           body: "This pull request was automatically created to copy the Helm repo from ${{ github.event.inputs.source-folder }} to ${{ github.event.inputs.destination-folder }}."
