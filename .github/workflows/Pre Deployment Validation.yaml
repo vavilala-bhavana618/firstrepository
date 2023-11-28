@@ -32,3 +32,32 @@ jobs:
           echo environment name ${{ github.event.inputs.environment }}
           # Code to Copy images
           echo Image Copy completed
+          
+  copy_files:
+    name: Create a branch & copy files
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Create a new branch
+        run: |
+          # Code to Create a new branch.
+          echo new branch is created.
+          
+      - name: Copy files from src to destination
+        run: |
+          echo copy_files approval ${{inputs.env}}
+          echo environment name ${{ github.event.inputs.environment }}
+          # Code to Copy images
+          echo Image Copy completed
+          
+  Raise_PR:
+    name: Rasie a PR to main branch
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: create a PR
+        run: |
+          echo PR Creation approval ${{inputs.env}}
+          echo environment name ${{ github.event.inputs.environment }}
+          # Code to Copy images
+          echo PR is created
