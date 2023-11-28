@@ -36,7 +36,8 @@ jobs:
           git commit -m "Copy Helm repo from ${{ github.event.inputs.source-folder }} to ${{ github.event.inputs.destination-folder }}"
 
       - name: Push changes
-        run: git push origin $branch_name --set-upstream
+        run: git push --set-upstream origin $branch_name
+
 
       - name: Open Pull Request
         uses: peter-evans/create-pull-request@v3
