@@ -46,6 +46,9 @@ jobs:
     needs: [copy_docker_image]
     environment: ${{ github.event.inputs.environment }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Create new branch
         run: |
           branch_name="copy_helm-${{ github.run_number }}"
