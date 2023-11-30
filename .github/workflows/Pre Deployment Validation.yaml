@@ -1,4 +1,4 @@
-name: Pre-Deployment Validation
+run-name: Deploy from ${{ inputs.source-folder }} to ${{ inputs.destination-folder }}
 
 on: 
   workflow_dispatch:
@@ -81,7 +81,7 @@ jobs:
           gh pr create \
             -B master \
             -H copy_helm-${{ github.run_number }} \
-            --title "Promote changes from ${{ inputs.source_env }} to ${{ inputs.destination_env }}" \
+            --title "Promote changes from ${{ inputs.source-folder }} to ${{ inputs.destination-folder }}" \
             --body "Automatically created by GitHub Actions"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
