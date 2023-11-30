@@ -41,4 +41,6 @@ jobs:
         run: |
           gh pr create \
           -B main \
+        env:
+          GH_TOKEN: ${{ github.token }}
 
