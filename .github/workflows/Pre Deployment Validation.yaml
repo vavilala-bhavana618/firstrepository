@@ -67,13 +67,6 @@ jobs:
 
       - name: Push changes
         run: git push origin copy_helm-${{ github.run_number }} --set-upstream
-        
-      # - name: Copy files from src to destination
-      #   run: |
-      #     echo copy_files approval ${{inputs.env}}
-      #     echo environment name ${{ github.event.inputs.environment }}
-      #     # Code to Copy images
-      #     echo Image Copy completed
           
   Raise_PR:
     name: Rasie a PR to main branch
@@ -81,9 +74,12 @@ jobs:
     needs: [copy_files]
     environment: ${{ github.event.inputs.environment }}
     steps:
-      - name: create a PR
+      - name: Open the pull request
         run: |
-          echo PR Creation approval ${{inputs.env}}
-          echo environment name ${{ github.event.inputs.environment }}
-          # Code to Copy images
-          echo PR is created
+          gh pr create \
+            -B main \
+            -H argocd-cd/${{ github.sha }} \
+            --title "Promote changes from ${{ inputs.source_env }} to ${{ inputs.destination_env }}" \
+            --body "Automatically created by GitHub Actions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
