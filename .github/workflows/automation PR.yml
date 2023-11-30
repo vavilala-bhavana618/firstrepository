@@ -41,7 +41,6 @@ jobs:
         run: |
           gh pr create \
           -B main \
-          #-H "${{ github.head_ref }}" \
           -H "$(git rev-parse --abbrev-ref HEAD)" \
           --title "Auto generated PR" \
           --body "PR raised automatically through workflow"
