@@ -7,6 +7,12 @@ on:
         required: true
         type: environment
         description: Where to deploy
+      source-folder:
+        description: 'Source folder within env'
+        required: true
+      destination-folder:
+        description: 'Destination folder within env'
+        required: true
         
 jobs:
   chart_validation:
@@ -40,17 +46,31 @@ jobs:
     needs: [copy_docker_image]
     environment: ${{ github.event.inputs.environment }}
     steps:
-      - name: Create a new branch
+      - name: Create new branch
         run: |
-          # Code to Create a new branch.
-          echo new branch is created.
-          
-      - name: Copy files from src to destination
+          branch_name="copy_helm-${{ github.run_number }}"
+          git checkout -b $branch_name
+
+      - name: Copy Helm repo from src to destination
         run: |
-          echo copy_files approval ${{inputs.env}}
-          echo environment name ${{ github.event.inputs.environment }}
-          # Code to Copy images
-          echo Image Copy completed
+          cp -r "env/${{ github.event.inputs.source-folder }}"/* "env/${{ github.event.inputs.destination-folder }}/"
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
+          git add .
+          git commit -m "Copy Helm repo from ${{ github.event.inputs.source-folder }} to ${{ github.event.inputs.destination-folder }}"
+
+      - name: Push changes
+        run: git push origin copy-helm-${{ github.run_number }} --set-upstream
+        
+      # - name: Copy files from src to destination
+      #   run: |
+      #     echo copy_files approval ${{inputs.env}}
+      #     echo environment name ${{ github.event.inputs.environment }}
+      #     # Code to Copy images
+      #     echo Image Copy completed
           
   Raise_PR:
     name: Rasie a PR to main branch
