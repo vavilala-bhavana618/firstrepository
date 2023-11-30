@@ -39,9 +39,10 @@ jobs:
 
       - name: Open the pull request
         run: |
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           gh pr create \
           -B main \
-          -H "$(git rev-parse --abbrev-ref HEAD)" \
+          -H "$CURRENT_BRANCH" \
           --title "Auto generated PR" \
           --body "PR raised automatically through workflow"
         env:
