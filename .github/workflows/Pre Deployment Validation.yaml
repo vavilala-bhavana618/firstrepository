@@ -79,8 +79,8 @@ jobs:
       - name: Open the pull request
         run: |
           gh pr create \
-            -B main \
-            -H argocd-cd/${{ github.sha }} \
+            -B master \
+            -H copy_helm-${{ github.run_number }} \
             --title "Promote changes from ${{ inputs.source_env }} to ${{ inputs.destination_env }}" \
             --body "Automatically created by GitHub Actions"
         env:
