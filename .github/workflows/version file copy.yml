@@ -1,0 +1,97 @@
+run-name: copy versions from ${{ inputs.source-folder }} to ${{ inputs.destination-folder }}
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: environment
+        description: Where to deploy
+      source-folder:
+        required: true
+        type: choice
+        description: 'Source folder within env'
+        options:
+        - development
+        - staging
+
+      destination-folder:
+        required: true
+        type: choice
+        description: 'Destination folder within env'
+        options:
+        - development
+        - staging
+
+jobs:
+  chart_validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Validate Chart
+        run: |
+          # Code to validate chart
+          echo "Chart Validation completed"
+
+  copy_docker_image:
+    name: Image copy approval
+    runs-on: ubuntu-latest
+    needs: [chart_validation]
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Copying Docker Images
+        run: |
+          echo Image copy approval ${{inputs.env}}
+          echo environment name ${{ github.event.inputs.environment }}
+          # Code to Copy images
+          echo Image Copy completed
+          
+  copy_files:
+    name: Create a branch & copy files
+    runs-on: ubuntu-latest
+    needs: [copy_docker_image]
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Create new branch
+        run: |
+          branch_name="copy_version-${{ github.run_number }}"
+          git checkout -b $branch_name
+
+      - name: Copy Helm repo from src to destination
+        run: |
+          cp -f "app/environments/${{ github.event.inputs.source-folder }}/version.yaml "app/environments/${{ github.event.inputs.destination-folder }}/version.yaml"
+          echo "Copied version.yaml from ${source_folder} to ${destination_folder}"
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
+          git add .
+          git commit -m "Copy Helm repo from ${{ github.event.inputs.source-folder }} to ${{ github.event.inputs.destination-folder }}"
+
+      - name: Push changes
+        run: git push origin copy_version-${{ github.run_number }} --set-upstream
+          
+  Raise_PR:
+    name: Rasie a PR to main branch
+    runs-on: ubuntu-latest
+    needs: [copy_files]
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Open the pull request
+        run: |
+          gh pr create \
+            -B master \
+            -H copy_version-${{ github.run_number }} \
+            --title "version updated from ${{ inputs.source-folder }} to ${{ inputs.destination-folder }}" \
+            --body "Automatically created by GitHub Actions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
