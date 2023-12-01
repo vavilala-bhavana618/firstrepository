@@ -1,0 +1,3 @@
+# app/environments/development/values.yaml
+  deployment:
+    replicas: 1
