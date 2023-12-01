@@ -6,7 +6,7 @@ on:
       environment:
         type: string
         description: 'Select environment'
-        default: 'dev'  # Set the default value
+        # default: 'dev'  # Set the default value
       # environment:
       #   required: true
       #   type: environment
