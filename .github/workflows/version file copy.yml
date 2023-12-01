@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        required: true
-        type: environment
-        description: Where to deploy
+        type: string
+        description: 'Select environment'
+        default: 'dev'  # Set the default value
+      # environment:
+      #   required: true
+      #   type: environment
+      #   description: Where to deploy
       source-folder:
         required: true
         type: choice
