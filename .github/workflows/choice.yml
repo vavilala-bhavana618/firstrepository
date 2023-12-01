@@ -6,16 +6,20 @@ on:
       environment:
         type: environment
         description: Select the environment
-      boolean:
-        type: boolean
-        description: True or False
-      choice:
+      source-folder:
         type: choice
         description: Make a choice
         options:
-        - foo
-        - bar
-        - baz
+        - dev
+        - prod
+        - lab
+      destination-folder:
+        type: choice
+        description: Make a choice
+        options:
+        - prod-pilot
+        - prod
+        - prod
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,4 +31,4 @@ jobs:
         run: | 
           echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
           echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
-          echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
+          echo  "env/${{ github.event.inputs.source-folder }} env/${{ github.event.inputs.destination-folder }}/"
