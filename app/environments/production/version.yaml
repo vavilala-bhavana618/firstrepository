@@ -1,0 +1,7 @@
+  # app/environments/development/version.yaml
+  # app/environments/staging/version.yaml
+  # app/environments/production/version.yaml
+  deployment:
+    image:
+      name: nginx
+      tag: 1.0.0
