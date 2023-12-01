@@ -1,0 +1,19 @@
+# app/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: my-application
+  template:
+    metadata:
+      name: my-pod
+      labels:
+        app: my-application
+    spec:
+      containers:
+        - name: webserver
+          image: {{ .Values.deployment.image.name }}:{{ .Values.deployment.image.tag }}
