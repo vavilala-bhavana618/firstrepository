@@ -3,9 +3,9 @@ run-name: copy versions from ${{ inputs.source-folder }} to ${{ inputs.destinati
 on: 
   workflow_dispatch:
     inputs:
-      environment:
-        type: string
-        description: 'Select environment'
+      # environment: dev
+        # type: string
+        # description: 'Select environment'
         # default: 'dev'  # Set the default value
       # environment:
       #   required: true
