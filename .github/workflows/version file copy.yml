@@ -65,7 +65,7 @@ jobs:
 
       - name: Copy Helm repo from src to destination
         run: |
-          cp -f "app/environments/${{ github.event.inputs.source-folder }}/version.yaml "app/environments/${{ github.event.inputs.destination-folder }}/version.yaml"
+          cp -f "app/environments/${{ github.event.inputs.source-folder }}/version.yaml" "app/environments/${{ github.event.inputs.destination-folder }}/version.yaml"
           echo "Copied version.yaml from ${source_folder} to ${destination_folder}"
 
       - name: Commit changes
