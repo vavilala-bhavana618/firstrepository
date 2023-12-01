@@ -14,6 +14,7 @@ on:
         options:
         - development
         - staging
+        - production
 
       destination-folder:
         required: true
@@ -22,6 +23,7 @@ on:
         options:
         - development
         - staging
+        - production
 
 jobs:
   chart_validation:
