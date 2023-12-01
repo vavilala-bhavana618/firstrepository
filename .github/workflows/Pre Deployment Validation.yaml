@@ -8,11 +8,25 @@ on:
         type: environment
         description: Where to deploy
       source-folder:
+        required: true
+        type: choice
         description: 'Source folder within env'
-        required: true
+        options:
+        - dev
+        - lab
+        - lab-x
+        - prod
+        - prod-pilot
       destination-folder:
-        description: 'Destination folder within env'
         required: true
+        type: choice
+        description: 'Destination folder within env'
+        options:
+        - dev
+        - lab
+        - lab-x
+        - prod
+        - prod-pilot
         
 jobs:
   chart_validation:
