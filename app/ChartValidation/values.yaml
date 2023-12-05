@@ -1,1 +1,24 @@
+# values.yaml
+
+# Define the details for the first container image
+image1:
+  repository: "your/repository-name"
+  name: "your-image-name-1"
+  tag: "latest"
+  pullPolicy: "IfNotPresent"  
+
+# Define the details for the second container image
+image2:
+  repository: "your/repository-name"
+  name: "your-image-name-2"
+  tag: "1.0.3"
+  pullPolicy: "IfNotPresent" 
+
+# Define the details for the second container image
+image3:
+  repository: "your/repository-name"
+  name: "your-image-name-3"
+  tag: "2.1.3"
+  pullPolicy: "IfNotPresent" 
+
 
