@@ -1,14 +1,15 @@
 apiVersion: v2
 name: my-chart
 description: A Helm chart for my application
-version: 0.1.0
-appVersion: "1.0"
+type: application
+version: 1.0.0
+appVersion: 1.0.0
 
-components:
-  - name: "component-1"
-    repo: "default/component-1-repo"
-    tag: "default-tag"
-
-  - name: "component-2"
-    repo: "default/component-2-repo"
-    tag: "default-tag"
+dependencies:
+  - name: sample-a
+    version: v0.0.6
+    repository: https://example.com/charts
+    
+  - name: sample-b
+    version: v0.0.5
+    repository: https://example.com/charts
