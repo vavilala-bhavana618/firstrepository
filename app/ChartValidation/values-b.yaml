@@ -1,0 +1,13 @@
+# values.yaml
+sample-b:
+  appRoot: /api/
+  local:
+    enabled: false
+
+  store:
+    enabled: true
+
+  image:
+    repository: "your-docker-repo/your-image-name"
+    pullPolicy: IfNotPresent
+    tag: "v0.0.55"
