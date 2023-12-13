@@ -23,12 +23,20 @@ jobs:
     steps:
       - name: Parse Repository Tag List
         run: |
-          repository_tag_list=(${{ needs.copy_docker_image.outputs.repository_tag_list }})
-          for item in "${repository_tag_list[@]}"; do
-            repository_tag=$(echo "$item" | cut -d ":" -f 1)
-            tag=$(echo "$item" | cut -d ":" -f 2)
-            echo "Repository: $repository_tag, Tag: $tag"
-          done
+          repository=$(echo ${{ matrix.repository_tag_list }} | cut -d ":" -f 1)
+          tag=$(echo ${{ matrix.repository_tag_list }} | cut -d ":" -f 2)
+
+          echo "Promoting $repository with tag $tag into next environment"
+
+          # Promoting the image
+          - name: Promote Container Image
+            id: promote-image
+            # uses: 
+            run: |
+              # repository: $repository
+              # image_tag: $tag
+              echo "repository: $repository"  # Echo repository value
+              echo "image_tag: $tag"          # Echo image_tag value
 
 
 # name: Colored Output Example
