@@ -15,15 +15,15 @@ jobs:
         run: |
           repository_tag_list=("docker.artifactory.com/sample-co/xapp:v0.0.1" "docker.artifactory.com/sample-co/ydec:v0.0.2")
           echo "repository_tag_list=${repository_tag_list[*]}" >> $GITHUB_ENV
-          
+
   next_step:
     name: Promote Container Image
     runs-on: ubuntu-latest
     needs: [copy_docker_image]
     strategy:
       matrix:
-        repository_tag: ${{fromJson(needs.copy_docker_image.outputs.repository_tag_list)}}
-    
+        repository_tag: ${{fromJson(needs.copy_docker_image.outputs.repository_tag_list) || []}}
+
     steps:
       - name: Print Repository and Tag
         run: |
@@ -32,6 +32,7 @@ jobs:
             tag=$(echo $item | cut -d ":" -f 2)
             echo "Repository: $repository, Tag: $tag"
           done
+
 
 
 # name: Colored Output Example
