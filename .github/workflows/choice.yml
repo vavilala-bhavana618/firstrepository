@@ -1,34 +1,20 @@
-name: choice workflow
+name: Print Repository and Tag Matrix
 
-on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: environment
-        description: Select the environment
-      source-folder:
-        type: choice
-        description: Make a choice
-        options:
-        - dev
-        - prod
-        - lab
-      destination-folder:
-        type: choice
-        description: Make a choice
-        options:
-        - prod-pilot
-        - prod
-        - prod
+on: workflow_dispatch
+
+
 jobs:
-  build:
+  print_matrix:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repository_tag: ["repo1:tag1", "repo2:tag2"]
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: greet
-        run: | 
-          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
-          echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
-          echo  "env/${{ github.event.inputs.source-folder }} env/${{ github.event.inputs.destination-folder }}/"
+      - name: Print Repository and Tag
+        run: |
+          for item in "${{ matrix.repository_tag[@] }}"; do
+            repository=$(echo $item | cut -d ":" -f 1)
+            tag=$(echo $item | cut -d ":" -f 2)
+            echo "Repository: $repository, Tag: $tag"
+          done
