@@ -18,3 +18,5 @@ jobs:
             tag=$(echo $item | cut -d ":" -f 2)
             echo "Repository: $repository, Tag: $tag"
           done
+          echo "${repository_tag[@]}"
+
