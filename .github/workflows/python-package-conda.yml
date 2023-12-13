@@ -23,14 +23,13 @@ jobs:
     steps:
       - name: Parse Repository Tag List
         run: |
-          repository_tag_list=($repository_tag_list)
+          repository_tag_list=(${{ needs.copy_docker_image.outputs.repository_tag_list }})
           for item in "${repository_tag_list[@]}"; do
             repository=$(echo "$item" | cut -d ":" -f 1)
             tag=$(echo "$item" | cut -d ":" -f 2)
             echo "Promoting $repository with tag $tag into next environment"
             # Add your promotion logic here
           done
-
 
 
 # name: Colored Output Example
