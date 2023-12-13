@@ -12,7 +12,7 @@ jobs:
         id: set-repo-tag-list
         run: |
           repository_tag_list=("docker.artifactory.com/sample-co/xapp:v0.0.1" "docker.artifactory.com/sample-co/ydec:v0.0.2")
-          repository_tag_json=$(echo "${repository_tag_list[@]}" | jq -R -s 'split(" ") | map({repository_tag: .}) | join(",")')
+          repository_tag_json=$(echo "${repository_tag_list[@]}" | jq -nR '[inputs | {repository_tag: .}]')
           echo "repository_tag_list=$repository_tag_json" >> $GITHUB_ENV
 
   next_step:
