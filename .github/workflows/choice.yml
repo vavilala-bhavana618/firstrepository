@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Print Repository and Tag
         run: |
-          for item in "${{ matrix.repository_tag[@] }}"; do
+          for item in "${{ matrix.repository_tag }}"; do
             repository=$(echo $item | cut -d ":" -f 1)
             tag=$(echo $item | cut -d ":" -f 2)
             echo "Repository: $repository, Tag: $tag"
