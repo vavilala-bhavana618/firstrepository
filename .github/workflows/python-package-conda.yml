@@ -13,8 +13,8 @@ jobs:
       - name: Set Repository Tag List
         id: set-repo-tag-list
         run: |
-          repository_tag_list=("docker.artifactory.com/sample-co/xapp:v0.0.1" "docker.artifactory.com/sample-co/ydec:v0.0.2")
-          echo "repository_tag_list=${repository_tag_list[*]}" >> $GITHUB_ENV
+          repository_tag_list='["docker.artifactory.com/sample-co/xapp:v0.0.1", "docker.artifactory.com/sample-co/ydec:v0.0.2"]'
+          echo "repository_tag_list=$repository_tag_list" >> $GITHUB_ENV
 
   next_step:
     name: Promote Container Image
@@ -22,16 +22,17 @@ jobs:
     needs: [copy_docker_image]
     strategy:
       matrix:
-        repository_tag: ${{fromJson(needs.copy_docker_image.outputs.repository_tag_list) || []}}
+        repository_tag: ${{fromJson(needs.copy_docker_image.outputs.repository_tag_list)}}
 
     steps:
       - name: Print Repository and Tag
         run: |
-          for item in "${{ matrix.repository_tag }}"; do
+          for item in $repository_tag; do
             repository=$(echo $item | cut -d ":" -f 1)
             tag=$(echo $item | cut -d ":" -f 2)
             echo "Repository: $repository, Tag: $tag"
           done
+
 
 
 
