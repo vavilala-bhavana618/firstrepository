@@ -1,4 +1,4 @@
-name: my list parsing
+name: list parsing
 
 on:
   workflow_dispatch
@@ -14,10 +14,11 @@ jobs:
         id: set-repo-tag-list
         run: |
           repository_tag_list='["docker.artifactory.com/sample-co/xapp:v0.0.1", "docker.artifactory.com/sample-co/ydec:v0.0.2"]'
-          echo "repository_tag_list=$repository_tag_list" >> $GITHUB_ENV
+          echo "repository_tag_list='${repository_tag_list}'" >> $GITHUB_ENV
 
       - name: Parse Repository Tags
         id: parse-repo-tags
         run: |
           repository_tag_list=$(echo $repository_tag_list | jq -c -r '.[]')
-          echo "repository_tag_list=$repository_tag_list" >> $GITHUB_ENV
+          echo "repository_tag_list='${repository_tag_list}'" >> $GITHUB_ENV
+
