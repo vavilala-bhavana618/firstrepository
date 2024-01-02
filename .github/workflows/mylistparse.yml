@@ -1,4 +1,4 @@
-name: list parsing
+name: my list parsing
 
 on:
   workflow_dispatch
