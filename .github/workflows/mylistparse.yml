@@ -13,9 +13,16 @@ jobs:
       - name: Set Repository Tag List
         id: set-repo-tag-list
         run: |
+          # Set the repository tag list as a string
           repository_tag_list='["docker.artifactory.com/sample-co/xapp:v0.0.1", "docker.artifactory.com/sample-co/ydec:v0.0.2"]'
-          repository_tag_list=$(echo $repository_tag_list | jq -c -r '.[]')
-          echo "repository_tag_list='${repository_tag_list}'" >> $GITHUB_ENV
+
+          # Split the string into an array
+          IFS=',' read -ra tags <<< "$repository_tag_list"
+
+          # Iterate through the array and print each item
+          for tag in "${tags[@]}"; do
+            echo "repository_tag_list=$tag" >> $GITHUB_ENV
+          done
 
       - name: Parse Repository Tags
         id: parse-repo-tags
