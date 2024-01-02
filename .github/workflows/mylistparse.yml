@@ -1,0 +1,23 @@
+name: list parsing
+
+on:
+  workflow_dispatch
+
+jobs:
+  copy_and_parse_docker_images:
+    name: Copy and Parse Docker Images
+    runs-on: ubuntu-latest
+    outputs:
+      repository_tag_list: ${{ steps.parse-repo-tags.outputs.repository_tag_list }}
+    steps:
+      - name: Set Repository Tag List
+        id: set-repo-tag-list
+        run: |
+          repository_tag_list='["docker.artifactory.com/sample-co/xapp:v0.0.1", "docker.artifactory.com/sample-co/ydec:v0.0.2"]'
+          echo "repository_tag_list=$repository_tag_list" >> $GITHUB_ENV
+
+      - name: Parse Repository Tags
+        id: parse-repo-tags
+        run: |
+          repository_tag_list=$(echo $repository_tag_list | jq -c -r '.[]')
+          echo "repository_tag_list=$repository_tag_list" >> $GITHUB_ENV
