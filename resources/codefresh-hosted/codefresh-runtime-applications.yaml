@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: codefresh-runtime-applications
+  labels:
+    codefresh.io/entity: 'git-source'
+    codefresh.io/internal: 'false'
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: git-sources
+  source:
+    repoURL: https://github.com/vavilala-bhavana618/codefresh-runtime-applications.git
+    path: .
+    targetRevision: HEAD
+    directory:
+      include: '*'
+      exclude: ''
+      recurse: true
+  destination:
+    namespace: codefresh-hosted
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      prune: true
+      selfHeal: true
