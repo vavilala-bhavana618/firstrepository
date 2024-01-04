@@ -15,7 +15,7 @@ spec:
   source:
     directory:
       include: >-
-        {all-runtimes-all-clusters/*.yaml,all-runtimes-all-clusters/**/*.yaml,runtimes/myruntime/*.yaml,runtimes/myruntime/**/*.yaml,control-planes/*.yaml,control-planes/**/*.yaml,myruntime/cf-gitops-runtime.yaml}
+        {all-runtimes-all-clusters/*.yaml,all-runtimes-all-clusters/**/*.yaml,runtimes/myruntime/*.yaml,runtimes/myruntime/**/*.yaml,control-planes/*.yaml,control-planes/**/*.yaml,myruntime/cf-gitops-runtime.yaml,myruntime/sample.yaml}
       recurse: true
     path: resources
     repoURL: https://github.com/vavilala-bhavana618/firstrepository.git
