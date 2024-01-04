@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cf-gitops-runtime
+  labels:
+    codefresh.io/entity: runtime
+    codefresh.io/internal: 'true'
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/vavilala-bhavana618/firstrepository.git
+    targetRevision: HEAD
+    path: resources/myruntime/chart
+    helm:
+      releaseName: cf-gitops-runtime
+  destination:
+    namespace: codef
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      prune: true
+      selfHeal: true
